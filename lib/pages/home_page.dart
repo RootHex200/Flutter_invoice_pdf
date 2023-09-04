@@ -1,11 +1,18 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:invoice/service/invoice_pdf_api_service.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+    var platform = const MethodChannel('samples.flutter.dev/battery');
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -17,6 +24,7 @@ class Homepage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: 
         ()async{
+
           InvoicePdfApi().generateInvoicepdf();
         }, child: const Text("Generate Invoice")),
       ),

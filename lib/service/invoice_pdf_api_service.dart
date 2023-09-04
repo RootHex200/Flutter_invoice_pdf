@@ -7,12 +7,13 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart';
 class InvoicePdfApi{
-
+   var platform = const MethodChannel('samples.flutter.dev/battery');
   Future<void> generateInvoicepdf()async{
+    final result=await platform.invokeMethod('bitmap');
     var myTheme = ThemeData.withFont(
-  base: Font.ttf(await rootBundle.load("assets/fonts/OpenSans-Regular.ttf")),
-  bold: Font.ttf(await rootBundle.load("assets/fonts/OpenSans-Bold.ttf")),
-  italic: Font.ttf(await rootBundle.load("assets/fonts/OpenSans-Italic.ttf")),
+  base: Font.ttf(await rootBundle.load("assets/fonts/Bangla.ttf")),
+  // bold: Font.ttf(await rootBundle.load("assets/fonts/OpenSans-Bold.ttf")),
+  // italic: Font.ttf(await rootBundle.load("assets/fonts/OpenSans-Italic.ttf")),
 );
     final pdf=Document(
       theme: myTheme
@@ -20,11 +21,9 @@ class InvoicePdfApi{
 
     pdf.addPage(MultiPage(
       build: (context){
-
+      
       return [
-        Center(
-          child: Text("hello world!!",style: TextStyle(fontWeight: FontWeight.bold)),
-        ),
+        Image(MemoryImage(Uint8List.fromList(result))),
       ];
     }));
 
